@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="650" height="500"> 
+
+     <g fill="none" stroke="rgb(0,0,0)" stroke-width="2">
+     <line class = "xaxis" x1 = "60" y1 = "440" x2 = "480" y2 = "440"/>
+     <line class = "yaxis" x1 = "60" y1 = "440" x2 = "60" y2 = "40"/>
+
+     
+
+     {% for label in project_labels %}
+          <text x="50" y="{{ 440 - (label * y_scale) }}" text-anchor="end">{{label}}</text>
+          <line x1="60" y1="{{ 440 - (label * y_scale) }}" x2="480" y2="{{ 440 - (label * y_scale) }}" stroke="rgba(0,0,0,0.3)" stroke-dasharray="5,5"/>
+     {% endfor %}
+
+     {% for year in years %}
+          {% if loop.index0 % 5 == 0 %}
+          <text class="label" x="{{60+loop.index0*x_scale}}" y="460" text-anchor="middle">{{year}}</text>
+          {% endif %}
+          <text class="label" x="480" y="460" text-anchor="middle">2023</text>
+     {% endfor %}
+     
+     <g id = "prjt">
+     {% for i in range(year_length) %}
+          <line class="pline" x1="{{60+i*x_scale}}" y1="{{440-(project_counts[i]*y_scale)}}" x2="{{60+(i+1)*x_scale}}" y2="{{440 - (project_counts[i + 1] * y_scale)}}"/>
+     {% endfor %}
+     </g>
+
+     <text class="xlabel" x="270" y="490" text-anchor="middle">Years</text> 
+     <text class="ylabel" alignment-baseline = "middle" transform = "translate(0,320) rotate(270)">Solar Projects Made</text>
+     <text class="xlabel" x="250" y="15" text-anchor="middle"> Solar Projects Made Per Year in {{zip}}</text> 
+
+
+</svg>
